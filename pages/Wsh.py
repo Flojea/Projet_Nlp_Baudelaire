@@ -49,26 +49,32 @@ st.title("📜 Baudelaire poem generation")
 
 model = load_model('https://github.com/valentin-daab/French-Poetry-Generator/blob/main/baudelaire.hdf5', compile = False)
 
-next_words = 50
 
+
+next_words = 50
+def generate_text(seed_text):
+    generated_text = ""
+    for _ in range(next_words):
+        token_list = tokenizer.texts_to_sequences([seed_text])[0]
+        token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
+        predicted = np.argmax(model.predict(token_list, verbose=0), axis=-1)
+        output_word = ""
+        for word, index in tokenizer.word_index.items():
+            if index == predicted:
+                output_word = word
+                break
+        if output_word == "":
+            break
+        if ord(output_word[0]) != 13:
+            seed_text = seed_text + " " + output_word
+            generated_text += output_word + " "
+    return generated_text.strip()
 
 def main():
     st.title("ouais ouais ouais")
     seed_text = st.text_input("ok :")
     if seed_text:
-        result = for _ in range(next_words):
-	token_list = tokenizer.texts_to_sequences([seed_text])[0]
-	token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
-	predicted = np.argmax(model.predict(token_list, verbose=0), axis=-1)
-	#print(predicted)
-	output_word = "_"
-	for word, index in tokenizer.word_index.items():
-		if index == predicted:
-			output_word = word
-			break
-
-	if ord(output_word[0]) != 13:
-		seed_text = seed_text + " " + str(output_word)
+        result = generate_text(seed_text)
         st.write("Résumé :")
         st.write(result)
 
