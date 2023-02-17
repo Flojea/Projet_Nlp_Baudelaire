@@ -75,7 +75,7 @@ def main():
     st.title("ouais ouais ouais")
     seed_text = st.text_input("ok :")
     if seed_text:
-        result = generate_text(seed_text))
+        result = generate_text(seed_text)
         st.write("Résumé :")
         st.write(str(result).replace("»", ""))
 
