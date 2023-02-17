@@ -47,7 +47,7 @@ st.title("📜 Baudelaire poem generation")
 
 
 
-model = load_model("https://raw.githubusercontent.com/valentin-daab/French-Poetry-Generator/blob/main/baudelaire.hdf5", compile = False)
+model = load_model("https://raw.githubusercontent.com/valentin-daab/French-Poetry-Generator/blob/main/baudelaire", compile = False)
 
 
 
