@@ -67,16 +67,17 @@ def generate_text(seed_text):
             break
         if ord(output_word[0]) != 13:
             seed_text = seed_text + " " + output_word
-            generated_text += output_word + " "
+            generated_text += output_word + " "	
     return generated_text.strip()
+    
 
 def main():
     st.title("ouais ouais ouais")
     seed_text = st.text_input("ok :")
     if seed_text:
-        result = generate_text(str(seed_text).replace("»", ""))
+        result = generate_text(seed_text))
         st.write("Résumé :")
-        st.write(result)
+        st.write(str(result).replace("»", ""))
 
 
 if __name__ == '__main__':
