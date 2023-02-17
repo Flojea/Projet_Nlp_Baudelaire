@@ -77,7 +77,7 @@ def main():
     if seed_text:
         result = generate_text(seed_text)
         st.write("Résumé :")
-        st.write(str(result).replace("»", ""))
+        st.write(seed_text + str(result).replace("»", ""))
 
 
 if __name__ == '__main__':
