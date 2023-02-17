@@ -45,13 +45,18 @@ label = ku.to_categorical(label, num_classes=total_words)
 
 st.title("📜 Baudelaire poem generation")
 
-seed_text = st.text_input("Start the poem with a few words", "Au plus")
+
 
 model = load_model('https://github.com/valentin-daab/French-Poetry-Generator/blob/main/baudelaire.hdf5', compile = False)
 
 next_words = 50
 
-for _ in range(next_words):
+
+def main():
+    st.title("ouais ouais ouais")
+    seed_text = st.text_input("ok :")
+    if seed_text:
+        result = for _ in range(next_words):
 	token_list = tokenizer.texts_to_sequences([seed_text])[0]
 	token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
 	predicted = np.argmax(model.predict(token_list, verbose=0), axis=-1)
@@ -64,13 +69,11 @@ for _ in range(next_words):
 
 	if ord(output_word[0]) != 13:
 		seed_text = seed_text + " " + str(output_word)
+        st.write("Résumé :")
+        st.write(result)
 
-st.write(str(seed_text).replace("»", ""))
 
-st.markdown("""---""")
+if __name__ == '__main__':
+    main()
 
-def read_markdown_file(markdown_file):
-    return Path(markdown_file).read_text()
 
-intro_markdown = read_markdown_file("https://raw.githubusercontent.com/valentin-daab/French-Poetry-Generator/main/text.md")
-st.markdown(intro_markdown, unsafe_allow_html=True)
